@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,6 +26,9 @@ public class NoteModel {
     private LocalDateTime reminderTime;
     private LocalDateTime registerDate;
     private LocalDateTime updateDate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<LabelModel> labelList;
 
 
     public NoteModel(NoteDTO noteDTO){

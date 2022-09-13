@@ -2,6 +2,7 @@ package com.bridgelabz.fundoonoteservice.service;
 
 import com.bridgelabz.fundoonoteservice.dto.NoteDTO;
 import com.bridgelabz.fundoonoteservice.exception.NoteException;
+import com.bridgelabz.fundoonoteservice.model.LabelModel;
 import com.bridgelabz.fundoonoteservice.model.NoteModel;
 import com.bridgelabz.fundoonoteservice.repository.NoteRepository;
 import com.bridgelabz.fundoonoteservice.util.Response;
@@ -216,9 +217,9 @@ public class NoteService implements INoteService {
             if (isIdPresent.isPresent()) {
                 return new Response(200, "Successfully", isIdPresent.get());
             }
-                throw new NoteException(400, "User not found");
-            }
-                throw new NoteException(400, "Invalid token");
+            throw new NoteException(400, "User not found");
         }
+        throw new NoteException(400, "Invalid token");
     }
+}
 

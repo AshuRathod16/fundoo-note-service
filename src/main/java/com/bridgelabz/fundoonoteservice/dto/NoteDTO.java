@@ -24,7 +24,7 @@ public class NoteDTO {
     @Pattern(regexp = "[a-z][A-Z a-z 0-9]+[@][a-z]+[.][a-z]{2,}", message = "Invalid email id")
     private String emailId;
 
-    private  String labelId;
+    private String labelId;
 
     private String colour;
 

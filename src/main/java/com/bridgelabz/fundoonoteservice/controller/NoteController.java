@@ -28,7 +28,7 @@ public class NoteController {
 
     @PostMapping("/createNote")
     public ResponseEntity<Response> createNote(@Valid @RequestBody NoteDTO noteDTO, @RequestHeader String token) {
-        NoteModel noteDto = noteService.createNote(noteDTO, token);
+        NoteModel noteModel = noteService.createNote(noteDTO, token);
         Response response = new Response(200, "mentor inserted successfully", token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
