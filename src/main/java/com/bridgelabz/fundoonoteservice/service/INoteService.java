@@ -5,6 +5,7 @@ import com.bridgelabz.fundoonoteservice.model.NoteModel;
 import com.bridgelabz.fundoonoteservice.util.Response;
 import com.bridgelabz.fundoonoteservice.util.ResponseUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,12 @@ public interface INoteService {
     public NoteModel trashNote(String token, Long noteId);
 
     public Response deleteNote(String token, Long noteId);
+
+    public Response setReminder(Long noteId, LocalDateTime reminder, String token);
+
+    public Response addLabels(List<Long> labelId, Long noteId, String token);
+
+    public Response addCollaborator(String emailId, Long noteId, List<String> collaborator);
 
 
 }

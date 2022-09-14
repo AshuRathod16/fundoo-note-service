@@ -9,6 +9,13 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import com.auth0.jwt.interfaces.Verification;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author  : Ashwini Rathod
+ * @version : 1.0
+ * @since   : 13-09-2022
+ * Purpose  : Creating Token And Decoding It
+ */
+
 @Component
 public class TokenUtil {
     private final String TOKEN_SECRET = "LoginToken";

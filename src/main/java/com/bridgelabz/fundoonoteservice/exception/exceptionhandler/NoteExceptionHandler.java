@@ -9,6 +9,13 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/*
+ * Purpose : NoteExceptionHandler is used to handle the exceptions
+ * Version : 1.0
+ * @since  : 13-09-2022
+ * @author : Ashwini Rathod
+ * */
+
 @ControllerAdvice
 public class NoteExceptionHandler {
     @ExceptionHandler(NoteException.class)

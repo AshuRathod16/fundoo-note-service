@@ -17,6 +17,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author : Ashwini Rathod
+ * @version: 1.0
+ * @since : 13-09-2022
+ * Purpose: Creating method to send Email
+ */
 @Service
 public class LabelService implements ILabelService {
     @Autowired

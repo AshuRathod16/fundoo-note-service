@@ -10,6 +10,13 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
+/**
+ * @author : Ashwini Rathod
+ * @version: 1.0
+ * @since : 13-09-2022
+ * Purpose: Creating method to send Email
+ */
+
 @Component
 @Slf4j
 public class MailService {

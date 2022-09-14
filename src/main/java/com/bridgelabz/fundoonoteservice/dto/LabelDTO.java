@@ -10,6 +10,13 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/**
+ * @author : Ashwini Rathod
+ * @version: 1.0
+ * @since : 13-09-2022
+ * Purpose : dto for the Label data
+ */
 @Data
 public class LabelDTO {
 

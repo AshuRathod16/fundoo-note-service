@@ -7,6 +7,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author : Ashwini Rathod
+ * @version: 1.0
+ * @since : 13-09-2022
+ * Purpose : Model for the Note data Registration
+ */
+
 @Data
 @Entity
 @Table(name = "NoteService")
@@ -29,6 +36,16 @@ public class NoteModel {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<LabelModel> labelList;
+
+
+    @ElementCollection(targetClass = String.class)
+//    @ManyToMany(cascade = CascadeType.ALL)
+    List<String> collaborator;
+
+
+
+
+
 
 
     public NoteModel(NoteDTO noteDTO){

@@ -21,6 +21,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+ * Purpose :Execute all REST Apis
+ * Version : 1.0
+ * @author : Ashwini Rathod
+ * @Visit Link :  http://localhost:8081/swagger-ui/
+ *
+ * */
+
 @Configuration
 public class SpringFoxConfig {
     public static final String AUTHORIZATION_HEADER = "Authorization";

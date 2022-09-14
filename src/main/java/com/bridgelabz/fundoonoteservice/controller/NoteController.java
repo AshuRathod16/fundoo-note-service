@@ -10,9 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * @author : Ashwini Rathod
+ * @version: 1.0
+ * @since : 13-09-2022
+ * Purpose : controller for the Note Service
+ */
 
 @RestController
 @RequestMapping("/note")
@@ -111,4 +118,23 @@ public class NoteController {
             Response response = new Response(200, "delete notes successfully", noteModel);
             return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/addCollaborator")
+    public ResponseEntity<Response> addCollaborator(@RequestParam String emailId, @PathVariable Long noteId, @RequestParam List<String> collaborator){
+        Response response = noteService.addCollaborator(emailId, noteId, collaborator);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/addLabel")
+    public ResponseEntity<Response> addLabel(@RequestParam List<Long> labelId, @PathVariable Long noteId, @RequestHeader String token){
+        Response response = noteService.addLabels(labelId, noteId, token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/setReminder/{id}")
+    public ResponseEntity<Response> setReminder(@PathVariable Long noteId,@RequestParam LocalDateTime reminder,@RequestHeader String token){
+        Response response = noteService.setReminder(noteId, reminder, token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

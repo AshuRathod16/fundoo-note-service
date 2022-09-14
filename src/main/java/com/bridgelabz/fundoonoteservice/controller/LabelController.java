@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author : Ashwini Rathod
+ * @version: 1.0
+ * @since : 13-09-2022
+ * Purpose : controller for the Label Service
+ */
+
 @RestController
 @RequestMapping("/label")
 public class LabelController {
