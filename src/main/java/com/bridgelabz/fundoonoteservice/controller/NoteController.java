@@ -36,13 +36,13 @@ public class NoteController {
     @PostMapping("/createNote")
     public ResponseEntity<Response> createNote(@Valid @RequestBody NoteDTO noteDTO, @RequestHeader String token) {
         NoteModel noteModel = noteService.createNote(noteDTO, token);
-        Response response = new Response(200, "mentor inserted successfully", token);
+        Response response = new Response(200, "Note Created successfully", token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
     @PutMapping("updateNote/{id}")
-    public ResponseEntity<Response> updateMentor(@Valid @RequestBody NoteDTO noteDTO, @PathVariable Long noteId, @RequestHeader String token) {
+    public ResponseEntity<Response> updateNote(@Valid @RequestBody NoteDTO noteDTO, @PathVariable Long noteId, @RequestHeader String token) {
         NoteModel noteModel = noteService.updateNotes(noteDTO, noteId, token);
         Response response = new Response(200, "Note updated successfully", noteModel);
         return new ResponseEntity<>(response, HttpStatus.OK);

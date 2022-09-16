@@ -44,7 +44,7 @@ public class NoteService implements INoteService {
 
     @Override
     public NoteModel createNote(NoteDTO nodeDto, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             NoteModel model = new NoteModel(nodeDto);
             noteRepository.save(model);
@@ -279,7 +279,7 @@ public class NoteService implements INoteService {
         if (isUserPresent) {
             Optional<NoteModel> isNotePresent = noteRepository.findById(noteId);
             if (isNotePresent.isPresent()) {
-                isNotePresent.get().getEmailId();
+                isNotePresent.get().setEmailId(emailId);
                 isNotePresent.get().setCollaborator(collaborator);
                 noteRepository.save(isNotePresent.get());
                 return new Response(200, "Successfully", isNotePresent.get());
@@ -287,7 +287,7 @@ public class NoteService implements INoteService {
                 throw new NoteException(400, "Note with this id is not found");
             }
         } else {
-            throw new NoteException(400, "Inavalid Email Id");
+            throw new NoteException(400, "Invalid Email Id");
         }
     }
 }
