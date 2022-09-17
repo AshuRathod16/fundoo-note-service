@@ -42,7 +42,7 @@ public class LabelService implements ILabelService {
 
     @Override
     public LabelModel createLabel(LabelDTO labelDTO, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             LabelModel labelModel = new LabelModel(labelDTO);
             labelRepository.save(labelModel);
@@ -55,7 +55,7 @@ public class LabelService implements ILabelService {
 
     @Override
     public LabelModel updateLabel(LabelDTO labelDTO, String token, Long labelId) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<LabelModel> isLabelPresent = labelRepository.findById(labelId);
             if (isLabelPresent.isPresent()) {
@@ -73,7 +73,7 @@ public class LabelService implements ILabelService {
 
     @Override
     public List<LabelModel> displayAllLabels(String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             List<LabelModel> readAllLabels = labelRepository.findAll();
             if (readAllLabels.size() > 0) {
@@ -86,7 +86,7 @@ public class LabelService implements ILabelService {
 
     @Override
     public Response deleteLabel(String token, Long labelId) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<LabelModel> isIdPresent = labelRepository.findById(labelId);
             if (isIdPresent.isPresent()) {

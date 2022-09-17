@@ -14,8 +14,7 @@ public class FundooNoteServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(FundooNoteServiceApplication.class, args);
     }
-    @Bean
-    @LoadBalanced
+    @Bean @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,8 +119,8 @@ public class NoteController {
     }
 
     @PostMapping("/addCollaborator")
-    public ResponseEntity<Response> addCollaborator(@RequestParam String emailId, @PathVariable Long noteId, @RequestParam List<String> collaborator){
-        Response response = noteService.addCollaborator(emailId, noteId, collaborator);
+    public ResponseEntity<Response> addCollaborator(@RequestParam String emailId, @PathVariable String noteId, @RequestParam String collaborator, @RequestHeader String token, @PathVariable Long collabaratorId){
+        Response response = noteService.addCollaborator(emailId, noteId, Long.valueOf(collaborator), token, collabaratorId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -132,7 +131,7 @@ public class NoteController {
     }
 
     @PostMapping("/setReminder/{id}")
-    public ResponseEntity<Response> setReminder(@PathVariable Long noteId,@RequestParam LocalDateTime reminder,@RequestHeader String token){
+    public ResponseEntity<Response> setReminder(@PathVariable Long noteId,@RequestParam String reminder,@RequestHeader String token){
         Response response = noteService.setReminder(noteId, reminder, token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

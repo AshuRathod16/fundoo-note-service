@@ -1,9 +1,12 @@
 package com.bridgelabz.fundoonoteservice.model;
 
 import com.bridgelabz.fundoonoteservice.dto.NoteDTO;
+import com.bridgelabz.fundoonoteservice.util.Response;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +20,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "NoteService")
-public class NoteModel {
+public class NoteModel extends Response {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long noteId;
@@ -30,7 +33,7 @@ public class NoteModel {
     private String labelId;
     private String emailId;
     private String colour;
-    private LocalDateTime reminderTime;
+    private LocalDateTime reminderDate;
     private LocalDateTime registerDate;
     private LocalDateTime updateDate;
 
@@ -41,14 +44,11 @@ public class NoteModel {
     @ElementCollection(targetClass = String.class)
 //    @ManyToMany(cascade = CascadeType.ALL)
     List<String> collaborator;
-
-
-
-
-
+    private String reminderTime;
 
 
     public NoteModel(NoteDTO noteDTO){
+        super();
         this.title = noteDTO.getTitle();
         this.description = noteDTO.getDescription();
         this.userId = noteDTO.getUserId();
@@ -59,5 +59,13 @@ public class NoteModel {
     }
 
     public NoteModel() {
+    }
+
+    public void setReminderTime(String reminderTime) {
+        this.reminderTime = reminderTime;
+    }
+
+    public String getReminderTime() {
+        return reminderTime;
     }
 }

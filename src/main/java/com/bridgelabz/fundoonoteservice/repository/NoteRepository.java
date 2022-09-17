@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface NoteRepository extends JpaRepository<NoteModel, Long> {
     Optional<NoteModel> findByEmailId(String emailId);
+
+    Optional<NoteModel> findByUserId(Long userId);
 }

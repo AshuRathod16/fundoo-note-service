@@ -35,11 +35,11 @@ public interface INoteService {
 
     public Response deleteNote(String token, Long noteId);
 
-    public Response setReminder(Long noteId, LocalDateTime reminder, String token);
+    public Response setReminder(Long noteId, String reminder, String token) ;
 
     public Response addLabels(List<Long> labelId, Long noteId, String token);
 
-    public Response addCollaborator(String emailId, Long noteId, List<String> collaborator);
+    public Response addCollaborator(String token, String emailId, Long noteId, String collaborator, Long collaboratorId);
 
 
 }

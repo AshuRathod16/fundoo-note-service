@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonoteservice.util;
 
+import com.bridgelabz.fundoonoteservice.model.NoteModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,6 +11,6 @@ public class Response {
     private String message;
     private Object token;
 
-    public Response() {
+    public Response(int i, String successfully, NoteModel noteModel, Object isEmailIdPresent) {
     }
 }
