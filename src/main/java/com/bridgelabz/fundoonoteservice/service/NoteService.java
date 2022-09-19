@@ -44,6 +44,12 @@ public class NoteService implements INoteService {
     @Autowired
     LabelRepository labelRepository;
 
+    /**
+     * @author Ashwini Rathod
+     * @param token, noteDTO
+     * Purpose: Creating method to create notes
+     */
+
     @Override
     public NoteModel createNote(NoteDTO nodeDto, String token) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
@@ -62,6 +68,12 @@ public class NoteService implements INoteService {
         }
         throw new NoteException(400, "Note not created ");
     }
+
+    /**
+     * @author Ashwini Rathod
+     * @param token,noteDTO,noteId
+     * Purpose: Creating method to update notes
+     */
 
     @Override
     public NoteModel updateNotes(NoteDTO noteDTO, Long noteId, String token) {
@@ -90,18 +102,34 @@ public class NoteService implements INoteService {
 
     }
 
+    /**
+     * @author Ashwini Rathod
+     * @param token
+     * purpose: Creating Method to read all notes by id
+     */
+
     @Override
     public List<NoteModel> readAllNotes(String token) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
-            List<NoteModel> readAllNotes = noteRepository.findAll();
-            if (readAllNotes.size() > 0) {
-                return readAllNotes;
+            Long userId = tokenUtil.decodeToken(token);
+            Optional<NoteModel> isUserIdPresent = noteRepository.findByUserId(userId);
+            if (isUserIdPresent.isPresent()) {
+                List<NoteModel> readAllNotes = noteRepository.findAll();
+                if (readAllNotes.size() > 0) {
+                    return readAllNotes;
+                }
             }
-            throw new NoteException(400, "Notes not found");
+            throw new NoteException(400, "Notes with this id not found");
         }
         throw new NoteException(400, "Token is invalid");
     }
+
+    /**
+     * @author Ashwini Rathod
+     * @param token,noteId
+     * purpose: Creating method to read notes by id
+     */
 
     @Override
     public Optional<NoteModel> readNotesById(Long noteId, String token) {
@@ -119,6 +147,12 @@ public class NoteService implements INoteService {
         }
         throw new NoteException(400, "Token is invalid");
     }
+
+    /**
+     * @author Ashwini Rathod
+     * @param token,noteId
+     * purpose: Creating method to archive notes
+     */
 
     @Override
     public NoteModel archiveNote(String token, Long noteId) {
@@ -139,6 +173,35 @@ public class NoteService implements INoteService {
         throw new NoteException(400, "Invalid token");
     }
 
+
+    /**
+     * @author Ashwini Rathod
+     * @param token
+     * purpose: Creating method get all archive notes by user id
+     */
+    @Override
+    public List<NoteModel> getAllArchiveNotes(String token) {
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
+        if (isUserPresent) {
+            Long userId = tokenUtil.decodeToken(token);
+            Optional<NoteModel> isUserIdPresent = noteRepository.findByUserId(userId);
+            if (isUserIdPresent.isPresent()) {
+                List<NoteModel> pinList = noteRepository.findByIsArchive();
+                if (pinList.size() > 0) {
+                    return pinList;
+                }
+            }
+            throw new NoteException(400, "Notes with this id not found");
+        }
+        throw new NoteException(400, "Token is invalid");
+    }
+
+
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId
+     * purpose: Creating method to unarchive notes
+     */
     @Override
     public NoteModel unArchiveNote(String token, Long noteId) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
@@ -158,6 +221,11 @@ public class NoteService implements INoteService {
         throw new NoteException(400, "Invalid token");
     }
 
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId
+     * purpose: Creating method to restoring notes
+     */
     @Override
     public NoteModel restoreNote(long noteId, String token) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
@@ -180,6 +248,11 @@ public class NoteService implements INoteService {
 
     }
 
+    /**
+     * @author Ashwini Rathod
+     * @param token,noteId
+     * purpose: Creating method to pin notes
+     */
 
     @Override
     public NoteModel pinNote(Long noteId, String token) {
@@ -202,6 +275,34 @@ public class NoteService implements INoteService {
 
     }
 
+    /**
+     * @author Ashwini Rathod
+     * @param token
+     * purpose: Creating method to get all pin notes
+     */
+    @Override
+    public List<NoteModel> getAllPinNotes(String token) {
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
+        if (isUserPresent) {
+            Long userId = tokenUtil.decodeToken(token);
+            Optional<NoteModel> isUserIdPresent = noteRepository.findByUserId(userId);
+            if (isUserIdPresent.isPresent()) {
+                List<NoteModel> pinList = noteRepository.findByIsPin();
+                if (pinList.size() > 0) {
+                    return pinList;
+                }
+            }
+            throw new NoteException(400, "Notes with this id not found");
+        }
+        throw new NoteException(400, "Token is invalid");
+    }
+
+
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId
+     * purpose: Creating method to unpin notes
+     */
     @Override
     public NoteModel unPinNote(Long noteId, String token) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
@@ -219,6 +320,12 @@ public class NoteService implements INoteService {
         }
     }
 
+
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId,colour
+     * purpose: Creating method to changing colour of notes
+     */
 
     @Override
     public NoteModel changeNoteColor(Long noteId, String colour, String token) {
@@ -241,6 +348,11 @@ public class NoteService implements INoteService {
         }
     }
 
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId
+     * purpose: Creating method to trash notes
+     */
     @Override
     public NoteModel trashNote(String token, Long noteId) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
@@ -260,6 +372,33 @@ public class NoteService implements INoteService {
         throw new NoteException(400, "Invalid token");
     }
 
+    /**
+     * @author  Ashwini Rathod
+     * @param   token
+     * purpose: Creating method to get all trash notes
+     */
+    @Override
+    public List<NoteModel> getAllTrashNotes(String token) {
+        boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
+        if (isUserPresent) {
+            Long userId = tokenUtil.decodeToken(token);
+            Optional<NoteModel> isUserIdPresent = noteRepository.findByUserId(userId);
+            if (isUserIdPresent.isPresent()) {
+                List<NoteModel> trashList = noteRepository.findByTrash();
+                if (trashList.size() > 0) {
+                    return trashList;
+                }
+            }
+            throw new NoteException(400, "Notes with this id not found");
+        }
+        throw new NoteException(400, "Token is invalid");
+    }
+
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId
+     * purpose: Creating method to delete notes
+     */
     @Override
     public Response deleteNote(String token, Long noteId) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
@@ -277,27 +416,41 @@ public class NoteService implements INoteService {
         throw new NoteException(400, "Invalid token");
     }
 
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId,reminder
+     * purpose: Creating method to set reminder of notes
+     */
+
     @Override
     public Response setReminder(Long noteId, String reminder, String token) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
-            Optional<NoteModel> isNotePresent = noteRepository.findById(noteId);
-            if (isNotePresent.isPresent()) {
-                LocalDate today = LocalDate.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
-                LocalDate reminde = LocalDate.parse(reminder, formatter);
-                if (reminde.isBefore(today))
-                    throw new NoteException(400, "Date is before original time");
-                isNotePresent.get().setReminderTime(reminder);
-                noteRepository.save(isNotePresent.get());
-                return isNotePresent.get();
+            Long userId = tokenUtil.decodeToken(token);
+            Optional<NoteModel> isUserIdPresent = noteRepository.findByUserId(userId);
+            if (isUserIdPresent.isPresent()) {
+                Optional<NoteModel> isNotePresent = noteRepository.findById(noteId);
+                if (isNotePresent.isPresent()) {
+                    LocalDate today = LocalDate.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
+                    LocalDate reminde = LocalDate.parse(reminder, formatter);
+                    if (reminde.isBefore(today))
+                        throw new NoteException(400, "Date is before original time");
+                    isNotePresent.get().setReminderTime(reminder);
+                    noteRepository.save(isNotePresent.get());
+                    return isNotePresent.get();
+                }
             }
             throw new NoteException(400, "Note with this id not found");
         }
         throw new NoteException(400, "Invalid Token");
     }
 
-
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId,labelId
+     * purpose: Creating method to add label to notes
+     */
 
     @Override
     public Response addLabels(List<Long> labelId, Long noteId, String token) {
@@ -321,8 +474,13 @@ public class NoteService implements INoteService {
         throw new NoteException(400, "Invalid token");
     }
 
+    /**
+     * @author  Ashwini Rathod
+     * @param   token,noteId,emailId,collaborator,collaboratorId
+     * purpose: Creating method to unpin notes
+     */
     @Override
-    public Response addCollaborator(String token, String emailId, Long noteId, String collaborator, Long collaboratorId) {
+    public Response addCollaborator(String token, String emailId, Long noteId, String collaborator) {
         boolean isUserPresent = restTemplate.getForObject("http://FUNDOO-USER:8082/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Long userId = tokenUtil.decodeToken(token);
@@ -346,7 +504,7 @@ public class NoteService implements INoteService {
                         noteList.add(isNotePresent.get().getEmailId());
 
                         NoteModel noteModel = new NoteModel();
-                        noteModel.setUserId(collaboratorId);
+//                        noteModel.setUserId(collaboratorId);
                         noteModel.setTitle(isNotePresent.get().getTitle());
                         noteModel.setDescription(isNotePresent.get().getDescription());
                         noteModel.setCollaborator(noteList);

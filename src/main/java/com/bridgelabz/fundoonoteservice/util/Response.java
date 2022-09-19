@@ -13,4 +13,8 @@ public class Response {
 
     public Response(int i, String successfully, NoteModel noteModel, Object isEmailIdPresent) {
     }
+
+    public Response() {
+
+    }
 }

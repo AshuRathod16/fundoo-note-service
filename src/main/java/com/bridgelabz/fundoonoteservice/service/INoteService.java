@@ -21,11 +21,15 @@ public interface INoteService {
 
     public NoteModel archiveNote(String token, Long noteId);
 
+    public List<NoteModel> getAllArchiveNotes(String token);
+
     public NoteModel unArchiveNote(String token, Long noteId);
 
     public NoteModel restoreNote(long noteId, String token);
 
     public NoteModel pinNote(Long noteId, String token);
+
+    public List<NoteModel> getAllPinNotes(String token);
 
     public NoteModel unPinNote(Long noteId, String token);
 
@@ -33,13 +37,15 @@ public interface INoteService {
 
     public NoteModel trashNote(String token, Long noteId);
 
+    public List<NoteModel> getAllTrashNotes(String token);
+
     public Response deleteNote(String token, Long noteId);
 
     public Response setReminder(Long noteId, String reminder, String token) ;
 
     public Response addLabels(List<Long> labelId, Long noteId, String token);
 
-    public Response addCollaborator(String token, String emailId, Long noteId, String collaborator, Long collaboratorId);
+    public Response addCollaborator(String token, String emailId, Long noteId, String collaborator);
 
 
 }

@@ -59,6 +59,7 @@ public class NoteModel extends Response {
     }
 
     public NoteModel() {
+        super();
     }
 
     public void setReminderTime(String reminderTime) {
